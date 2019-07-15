@@ -20,7 +20,7 @@ variable "format" {
 
 variable "image" {
   description = "Path to the image. FIXME."
-  default     = "/vmdisk/jenkins-cluster/test-dummy-for-terraform/sles12sp1-node1.qcow2"
+  default     = "/var/lib/libvirt/images/backup-suma/sles15sp1"
 }
 
 variable "shared_img" {

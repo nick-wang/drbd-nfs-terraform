@@ -4,5 +4,4 @@ shared_img=false
 
 pool="ssd"
 
-#dummylist=["sdf","sdfAsd"]
-
+prefix="sle15sp1"

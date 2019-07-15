@@ -11,6 +11,7 @@ locals {
   dummy_net_name = "${var.prefix}-basenet"
 }
 
+# Download retrieve source image
 resource "libvirt_volume" "base_image" {
   name   = "${var.prefix}-baseimage"
   pool   = "${var.pool}"
@@ -45,12 +46,12 @@ output "configuration" {
   ]
 
   value = {
-    dummy    = "test"
     timezone = "${var.timezone}"
     domain   = "${var.netdomain}"
     prefix   = "${var.prefix}"
     iprange  = "${join(",", var.iprange)}"
     pool     = "${var.pool}"
+
     # Use join to change possible list to string. Since need have homogenous type
     image_id   = "${join(",", libvirt_volume.base_image.*.id)}"
     image_name   = "${join(",", libvirt_volume.base_image.*.name)}"
