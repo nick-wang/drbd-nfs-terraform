@@ -64,6 +64,27 @@ resource "libvirt_domain" "domain" {
     xslt = "${file("${var.xmlfile}")}"
   }
 
+  console {
+    type        = "pty"
+    target_port = "0"
+    target_type = "serial"
+  }
+
+  console {
+    type        = "pty"
+    target_type = "virtio"
+    target_port = "1"
+  }
+
+  graphics {
+    type        = "spice"
+    listen_type = "address"
+    autoport    = true
+  }
+
+  cpu {
+    mode = "host-passthrough"
+  }
 }
 
 output "information" {
