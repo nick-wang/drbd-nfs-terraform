@@ -8,7 +8,7 @@ provider "libvirt" {
 
 // https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/website/docs/r/volume.html.markdown
 resource "libvirt_volume" "sbd" {
-  name  = "${var.base_configuration["prefix"]}-${var.name}-sbddisk.raw"
+  name  = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}-sbddisk.raw"
   pool  = "${var.base_configuration["pool"]}"
   size  = "${var.sbd_disk_size}"
   count = "${var.hcount}"
@@ -20,6 +20,6 @@ resource "libvirt_volume" "sbd" {
   }
 }
 
-output "id" {
+output "ids" {
   value = "${join(",", libvirt_volume.sbd.*.id)}"
 }
