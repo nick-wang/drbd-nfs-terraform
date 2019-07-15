@@ -18,6 +18,22 @@ variable "hcount" {
   default     = 1
 }
 
+variable "drbd_disk_count" {
+  description = "Number of drbd disk"
+  default     = 1
+}
+
+variable "drbd_disk_size" {
+  description = "drbd partition disk size"
+  default     = "1024000000"              # 1GB
+}
+
+variable "host_ips" {
+  description = "IP addresses to set to the nodes"
+  default     = []
+}
+
+
 // Provider-specific variables
 variable "memory" {
   description = "RAM memory in MiB"
@@ -27,11 +43,6 @@ variable "memory" {
 variable "vcpu" {
   description = "Number of virtual CPUs"
   default     = 1
-}
-
-variable "cpu_model" {
-  description = "Define what CPU model the guest is getting (host-model, host-passthrough or the default)."
-  default = ""
 }
 
 variable "running" {

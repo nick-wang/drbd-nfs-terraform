@@ -1,0 +1,22 @@
+Outputs:
+
+addresses = [
+    [
+        map[wait_for_lease:1 network_id:33d11d18-3f6d-483c-895d-ee0ca2a60d0a network_name:sle15sp1-basenet-1 passthrough: mac:AA:BB:CC:11:11:31 bridge: vepa: hostname:node1 addresses:[192.168.10.100 fe80::a8bb:ccff:fe11:1131] macvtap:]
+    ],
+    [
+        map[network_name:sle15sp1-basenet-1 hostname:node2 passthrough: mac:AA:BB:CC:11:11:32 bridge: wait_for_lease:1 addresses:[192.168.10.101 fe80::a8bb:ccff:fe11:1132] network_id:33d11d18-3f6d-483c-895d-ee0ca2a60d0a vepa: macvtap:]
+    ]
+]
+diskes = [
+    [
+        map[volume_id:/ssddummy/libvirtimages/sle15sp1-testnode-1-maindisk wwn: scsi:0 url: file:]
+    ],
+    [
+        map[scsi:0 file: volume_id:/ssddummy/libvirtimages/sle15sp1-testnode-2-maindisk url: wwn:]
+    ]
+]
+information = {
+  guestname = sle15sp1-testnode-1,sle15sp1-testnode-2
+}
+
