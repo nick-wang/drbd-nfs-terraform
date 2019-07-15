@@ -39,6 +39,11 @@ variable "running" {
   default     = true
 }
 
+variable "xmlfile" {
+  description = "Path to xmlfile to define host. eg, (sbd disk) shareable"
+  default     = "modules/host/shareable.xsl"
+}
+
 variable "additional_disk" {
   description = "disk block definition(s) to be added to this host"
   default     = []

@@ -14,3 +14,4 @@ base_configuration = {
 
 name="nwang"
 hcount=2
+xmlfile="shareable.xsl"

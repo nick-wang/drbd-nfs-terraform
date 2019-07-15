@@ -1,27 +1,4 @@
-Outputs:
-
-addresses = [
-    [
-        map[addresses:[192.168.10.100] passthrough: bridge: macvtap: network_id:33d11d18-3f6d-483c-895d-ee0ca2a60d0a vepa: network_name:sle15sp1-basenet-1 wait_for_lease:1 mac:AA:BB:CC:11:11:31 hostname:node1]
-    ],
-    [
-        map[network_name:sle15sp1-basenet-1 passthrough: macvtap: hostname:node2 vepa: wait_for_lease:1 mac:AA:BB:CC:11:11:32 bridge: addresses:[192.168.10.101] network_id:33d11d18-3f6d-483c-895d-ee0ca2a60d0a]
-    ]
-]
-diskes = [
-    [
-        map[scsi:0 file: volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-1-maindisk wwn: url:]
-    ],
-    [
-        map[volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-2-maindisk file: scsi:0 wwn: url:]
-    ]
-]
-information = {
-  guestname = sle15sp1-nwang-1,sle15sp1-nwang-2
-}
-xml = [
-    {
-        xslt = <?xml version="1.0" ?>
+<?xml version="1.0" ?>
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
@@ -53,6 +30,3 @@ xml = [
   </xsl:template>
 
 </xsl:stylesheet>
-
-    }
-]

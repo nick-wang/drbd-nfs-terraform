@@ -58,6 +58,12 @@ resource "libvirt_domain" "domain" {
         "addresses",  "${list("${local.network_addresses[0]}${count.index}")}",
       )
     ))}"]
+
+  #https://libvirt.org/formatdomain.html
+  xml {
+    xslt = "${file("${var.xmlfile}")}"
+  }
+
 }
 
 output "information" {
@@ -79,4 +85,9 @@ output "addresses" {
 
 output "diskes" {
   value = "${libvirt_domain.domain.*.disk}"
+}
+
+// All xml should be exactly the same, so only show the 1st one
+output "xml" {
+  value = "${libvirt_domain.domain.0.xml}"
 }
