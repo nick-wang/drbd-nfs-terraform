@@ -1,3 +1,7 @@
+terraform {
+  required_version = "~> 0.11.7"
+}
+
 provider "libvirt" {
   uri = "${var.qemu_uri}"
 }
@@ -24,19 +28,24 @@ module "base" {
   timezone = "${var.timezone}"
 }
 
-module "host" {
-   source             = "./modules/host"
+module "sbd" {
+   source             = "./modules/sbd"
    base_configuration = "${module.base.configuration}"
 
-   name    = "${var.hostname}${terraform.workspace == "default" ? "" : terraform.workspace}"
-   hcount   = "${var.hcount}"
-   drbd_disk_count = "${var.drbd_disk_count}"
-   drbd_disk_size  = "${var.drbd_disk_size}"
-   host_ips        = "${var.host_ips}"
+   # Only support hcount:1 atm
+   hcount  = 1
 }
 
-output "iplist" {
-  value = "${var.host_ips}"
+module "drbd" {
+   source             = "./modules/drbd"
+   base_configuration = "${module.base.configuration}"
+
+   hcount   = "${var.hcount}"
+   # Only support drbd_disk_count:1 atm
+   drbd_disk_count = "${var.drbd_disk_count}"
+   drbd_disk_size  = "${var.drbd_disk_size}"
+
+   sbd_disk = "${module.sbd.ids}"
 }
 
 output "iprange" {
@@ -47,14 +56,18 @@ output "base_configuration" {
   value = "${module.base.configuration}"
 }
 
-output "host_information" {
-  value = "${module.host.information}"
+output "drbd_information" {
+  value = "${module.drbd.information}"
 }
 
-output "host_addresses" {
-  value = "${module.host.addresses}"
+output "drbd_addresses" {
+  value = "${module.drbd.addresses}"
 }
 
-output "host_diskes" {
-  value = "${module.host.diskes}"
+output "drbd_diskes" {
+  value = "${module.drbd.diskes}"
+}
+
+output "drbd_xml" {
+  value = "${module.drbd.xml}"
 }
