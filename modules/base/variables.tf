@@ -20,7 +20,7 @@ variable "format" {
 
 variable "image" {
   description = "Path to the template image."
-  default     = "/var/lib/libvirt/images/backup-suma/sles15sp1"
+  type        = "string"
 }
 
 variable "baseimg" {
