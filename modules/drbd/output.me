@@ -1,0 +1,70 @@
+Outputs:
+
+addresses = [
+    [
+        map[network_name:sle15sp1-basenet-1 addresses:[192.168.10.100 fe80::a8bb:ccff:fe11:1131] passthrough: wait_for_lease:1 vepa: mac:AA:BB:CC:11:11:31 macvtap: bridge: network_id:04ce12bc-456d-4330-a26f-c9bc7870098f hostname:node1]
+    ],
+    [
+        map[passthrough: wait_for_lease:1 bridge: vepa: hostname:node2 macvtap: network_id:04ce12bc-456d-4330-a26f-c9bc7870098f mac:AA:BB:CC:11:11:32 addresses:[192.168.10.101 fe80::a8bb:ccff:fe11:1132] network_name:sle15sp1-basenet-1]
+    ],
+    [
+        map[wait_for_lease:1 addresses:[192.168.10.102 fe80::a8bb:ccff:fe11:1133] hostname:node3 passthrough: mac:AA:BB:CC:11:11:33 network_name:sle15sp1-basenet-1 vepa: bridge: macvtap: network_id:04ce12bc-456d-4330-a26f-c9bc7870098f]
+    ]
+]
+diskes = [
+    [
+        map[file: wwn: url: scsi:0 volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-1-drbd-maindisk],
+        map[scsi:0 url: wwn: file: volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-1-drbddisk],
+        map[wwn: volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-1-sbddisk.raw url: file: scsi:0]
+    ],
+    [
+        map[file: scsi:0 wwn: volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-2-drbd-maindisk url:],
+        map[url: scsi:0 file: wwn: volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-2-drbddisk],
+        map[url: file: wwn: scsi:0 volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-1-sbddisk.raw]
+    ],
+    [
+        map[volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-3-drbd-maindisk file: scsi:0 wwn: url:],
+        map[wwn: volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-3-drbddisk scsi:0 url: file:],
+        map[wwn: file: url: volume_id:/ssddummy/libvirtimages/sle15sp1-nwang-1-sbddisk.raw scsi:0]
+    ]
+]
+information = {
+  guestname = drbd-sle15sp1-nwang-1,drbd-sle15sp1-nwang-2,drbd-sle15sp1-nwang-3
+}
+xml = [
+    {
+        xslt = <?xml version="1.0" ?>
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:output omit-xml-declaration="yes" indent="yes"/>
+
+  <xsl:template match="node()|@*">
+     <xsl:copy>
+       <xsl:apply-templates select="node()|@*"/>
+     </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="/domain/devices/disk/source">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()"/>
+    </xsl:copy>
+    <xsl:if test="contains(./@volume,'sbd')">
+      <xsl:element name="shareable"/>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="/domain/devices/disk/driver/@type">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()"/>
+    </xsl:copy>
+    <xsl:if test="contains(../../source/@volume,'sbd')">
+      <xsl:attribute name="type">
+        <xsl:value-of select="'raw'"/>
+      </xsl:attribute>
+    </xsl:if>
+  </xsl:template>
+
+</xsl:stylesheet>
+
+    }
+]

@@ -6,6 +6,9 @@ provider "libvirt" {
   uri = "${var.qemu_uri}"
 }
 
+// Sepreate from "host" module since may have multiple additional_disks including sbd for differnet nodes.
+// Create domain here
+
 locals {
   network_card_list = "${split(",", "${var.base_configuration["network_id"]}")}"
   network_iprange   = "${split(",", "${var.base_configuration["iprange"]}")}"
@@ -14,12 +17,13 @@ locals {
 }
 
 resource "libvirt_volume" "main_disk" {
-  name             = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}-maindisk"
-  base_volume_name = "${var.base_configuration["shared_img"] ? "" : var.base_configuration["prefix"]}-baseimage"
+  name             = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}-drbd-maindisk"
+  base_volume_name = "${var.base_configuration["shared_img"] ? "${var.base_configuration["prefix"]}-baseimage" : var.base_configuration["image_name"]}"
   pool             = "${var.base_configuration["pool"]}"
   count            = "${var.hcount}"
 }
 
+// FIXME: Only support drbd_disk_count is 1 atm
 resource "libvirt_volume" "drbd_disk" {
   name  = "${var.base_configuration["prefix"]}-${var.name}${var.hcount * var.drbd_disk_count > 1 ? "-${count.index  + 1}" : ""}-drbddisk"
   pool  = "${var.base_configuration["pool"]}"
@@ -27,50 +31,31 @@ resource "libvirt_volume" "drbd_disk" {
   size  = "${var.drbd_disk_size}"
 }
 
-#https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/website/docs/r/volume.html.markdown
-resource "libvirt_volume" "sbd_disk" {
-  name  = "${var.base_configuration["prefix"]}-${var.name}-sbddisk"
-  pool  = "${var.base_configuration["pool"]}"
-  count = 1
-  size  = "102400000"  # 100M
-
-  #https://www.w3schools.com/xml/xsl_languages.asp
-  #https://libvirt.org/formatstorage.html#exampleVol
-  xml {
-    xslt = "${file("modules/host/volume_raw.xsl")}"
-  }
-}
-
-// https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/website/docs/r/domain.html.markdown
+#// https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/website/docs/r/domain.html.markdown
 resource "libvirt_domain" "domain" {
-  name       = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}"
+  name       = "drbd-${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}"
   memory     = "${var.memory}"
   vcpu       = "${var.vcpu}"
   running    = "${var.running}"
   count      = "${var.hcount}"
   qemu_agent = true
 
-  # FIXME, need to calc the count of drbd_disks to support flexible var.drbd_disk_count
-  # May use %{ if xxx } %{ else } %{ endif } or
-  #         %{ for xxx } %{ endfor }
-  # https://www.terraform.io/docs/configuration/expressions.html
+  // Only support to use the 1st sbd at the moment
   disk = ["${concat(
     list(
       map("volume_id", "${element(libvirt_volume.main_disk.*.id, count.index)}"),
       map("volume_id", "${element(libvirt_volume.drbd_disk.*.id, count.index)}"),
+      map("volume_id", var.sbd_disk),
     ),
     var.additional_disk
   )}"]
 
-  disk {
-    volume_id = "${element(libvirt_volume.sbd_disk.*.id, 0)}"
+  // copy host CPU model to guest to get the vmx flag if present
+  cpu {
+    mode = "${var.cpu_model != "" ? "${var.cpu_model}" : "host-passthrough"}"
   }
 
-  #https://libvirt.org/formatdomain.html
-  xml {
-    xslt = "${file("modules/host/shareable.xsl")}"
-  }
-
+  # FIXME: change fixed IP to dynamic IP
   network_interface = ["${list(
     merge(
       map(
@@ -84,37 +69,34 @@ resource "libvirt_domain" "domain" {
       )
     ))}"]
 
-# Remove the support of two netcard
-#  network_interface = ["${list(
-#    merge(
-#      map(
-#        "network_id", "${local.network_card_list[0]}",
-#        "hostname",   "node${count.index + 1}",
-#        "mac",        "AA:BB:CC:11:11:3${count.index + 1}",
-#        "wait_for_lease", true,
-#      ),
-#      map(
-#        "addresses",  "${list("${local.network_addresses[0]}${count.index}")}",
-#      )
-#    ),
-#    merge(
-#      map(
-#        "network_id", "${local.network_card_list[1]}",
-#        "mac",        "AA:BB:DD:11:22:3${count.index + 1}",
-#        "wait_for_lease", true,
-#      ),
-#      map(
-#        "addresses",  "${list("${local.network_addresses[1]}${count.index}")}",
-#      )
-#    ),
-#  )}"]
-#
+  #https://libvirt.org/formatdomain.html
+  xml {
+    xslt = "${file("${var.xmlfile}")}"
+  }
+
+  console {
+    type        = "pty"
+    target_port = "0"
+    target_type = "serial"
+  }
+
+  console {
+    type        = "pty"
+    target_type = "virtio"
+    target_port = "1"
+  }
+
+  graphics {
+    type        = "spice"
+    listen_type = "address"
+    autoport    = true
+  }
+
 }
 
 output "information" {
   depends_on = [
     "libvirt_volume.main_disk",
-    "libvirt_volume.drbd_disk",
     "libvirt_domain.domain",
   ]
 
@@ -132,3 +114,9 @@ output "addresses" {
 output "diskes" {
   value = "${libvirt_domain.domain.*.disk}"
 }
+
+// All xml should be exactly the same, so only show the 1st one
+output "xml" {
+  value = "${libvirt_domain.domain.0.xml}"
+}
+

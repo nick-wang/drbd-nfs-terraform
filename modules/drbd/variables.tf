@@ -18,6 +18,16 @@ variable "hcount" {
   default     = 1
 }
 
+variable "cpu_model" {
+  description = "Define what CPU model the guest is getting (host-model, host-passthrough or the default)."
+  default = ""
+}
+
+variable "xmlfile" {
+  description = "Path to xmlfile to define host. eg, (sbd disk) shareable"
+  default     = "modules/drbd/shareable.xsl"
+}
+
 variable "drbd_disk_count" {
   description = "Number of drbd disk"
   default     = 1
@@ -27,12 +37,6 @@ variable "drbd_disk_size" {
   description = "drbd partition disk size"
   default     = "1024000000"              # 1GB
 }
-
-variable "host_ips" {
-  description = "IP addresses to set to the nodes"
-  default     = []
-}
-
 
 // Provider-specific variables
 variable "memory" {
@@ -53,4 +57,9 @@ variable "running" {
 variable "additional_disk" {
   description = "disk block definition(s) to be added to this host"
   default     = []
+}
+
+variable "sbd_disk" {
+  description = "sbd devices, only support 1 device atm. FIXME"
+  default     = ""
 }
