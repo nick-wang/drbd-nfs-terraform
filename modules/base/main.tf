@@ -13,7 +13,7 @@ locals {
 
 # Download retrieve source image
 resource "libvirt_volume" "base_image" {
-  name   = "${var.prefix}-baseimage"
+  name   = "${var.baseimg == "" ? "${var.prefix}-baseimage" : var.baseimg}"
   pool   = "${var.pool}"
   format = "${var.format}"
   source = "${var.image}"

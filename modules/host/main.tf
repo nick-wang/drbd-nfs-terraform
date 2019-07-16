@@ -15,7 +15,7 @@ locals {
 
 resource "libvirt_volume" "main_disk" {
   name             = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}-maindisk"
-  base_volume_name = "${var.base_configuration["shared_img"] ? "" : var.base_configuration["prefix"]}-baseimage"
+  base_volume_name = "${var.base_configuration["shared_img"] ? "${var.base_configuration["prefix"]}-baseimage" : var.base_configuration["image_id"]}"
   pool             = "${var.base_configuration["pool"]}"
   count            = "${var.hcount}"
 }

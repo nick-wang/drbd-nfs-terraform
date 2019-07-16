@@ -2,7 +2,6 @@
 base_configuration = {
   prefix = "sle15sp1"
   pool = "ssd"
-  image_source = "/var/lib/libvirt/images/backup-suma/sles15sp1"
   image_id = "/ssddummy/libvirtimages/sle15sp1-baseimage"
   iprange="192.168.10.0/24,192.168.20.0/24"
   shared_img=0

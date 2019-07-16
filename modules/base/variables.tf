@@ -19,8 +19,13 @@ variable "format" {
 }
 
 variable "image" {
-  description = "Path to the image. FIXME."
+  description = "Path to the template image."
   default     = "/var/lib/libvirt/images/backup-suma/sles15sp1"
+}
+
+variable "baseimg" {
+  description = "Generated name of base image."
+  default     = ""
 }
 
 variable "shared_img" {
