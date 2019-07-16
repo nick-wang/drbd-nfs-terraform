@@ -15,7 +15,7 @@ locals {
 
 resource "libvirt_volume" "main_disk" {
   name             = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}-maindisk"
-  base_volume_name = "${var.base_configuration["shared_img"] ? "${var.base_configuration["prefix"]}-baseimage" : var.base_configuration["image_id"]}"
+  base_volume_name = "${var.base_configuration["shared_img"] ? "${var.base_configuration["prefix"]}-baseimage" : var.base_configuration["image_name"]}"
   pool             = "${var.base_configuration["pool"]}"
   count            = "${var.hcount}"
 }
@@ -31,7 +31,7 @@ resource "libvirt_domain" "domain" {
 
   // copy host CPU model to guest to get the vmx flag if present
   cpu {
-    mode = "${var.cpu_model != "" ? "${var.cpu_model}" : "custom"}"
+    mode = "${var.cpu_model != "" ? "${var.cpu_model}" : "host-passthrough"}"
   }
 
   # FIXME, need to calc the count of drbd_disks to support flexible var.drbd_disk_count
@@ -80,10 +80,6 @@ resource "libvirt_domain" "domain" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
-  }
-
-  cpu {
-    mode = "host-passthrough"
   }
 }
 
