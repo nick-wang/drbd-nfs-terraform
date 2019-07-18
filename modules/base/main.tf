@@ -47,7 +47,7 @@ output "configuration" {
 
   value = {
     timezone = "${var.timezone}"
-    domain   = "${var.netdomain}"
+    domain   = "${join(",", libvirt_network.base_network.*.domain)}"
     prefix   = "${var.prefix}"
     iprange  = "${join(",", var.iprange)}"
     pool     = "${var.pool}"
