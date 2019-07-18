@@ -49,10 +49,10 @@ variable "netdomain" {
 }
 
 variable "iprange" {
-  description = "Used host ip addresses range"
+  description = "Used host ip addresses range. Static IP will start as 192.168.XXX.Y(0), 192.168.XXX.Y(1)"
   type        = "list"
-  // default     = ["192.168.10.0/24", "192.168.20.0/24"]
-  default     = ["192.168.10.0/24"]
+  // default     = ["192.168.10.10/24", "192.168.20.10/24"]
+  default     = ["192.168.10.10/24"]
 }
 
 variable "dhcp" {

@@ -6,11 +6,16 @@ provider "libvirt" {
   uri = "${var.qemu_uri}"
 }
 
+// Need to apply module `base`  to test this individually
+
+// Change from string to list
 locals {
   network_card_list = "${split(",", "${var.base_configuration["network_id"]}")}"
   network_iprange   = "${split(",", "${var.base_configuration["iprange"]}")}"
-  // FIXME, addresses should get from iprange
-  network_addresses = ["192.168.10.10"]
+  // Should use 192.168.10.10/24 instead of 192.168.10.0/24 (10.00 doesn't make sense)
+  // Then the ips will start from 100, 101, ...
+  // Configure more than 10 nodes, should use dynamic IP
+  network_addresses = "${element(split("/", local.network_iprange[0]), 0)}"
 }
 
 resource "libvirt_volume" "main_disk" {
@@ -46,16 +51,17 @@ resource "libvirt_domain" "domain" {
   )}"]
 
   # FIXME: change fixed IP to dynamic IP
+  // hostname is same as libvirt_domain.domain.*.name[count.index]
   network_interface = ["${list(
     merge(
       map(
         "network_id", "${local.network_card_list[0]}",
-        "hostname",   "node${count.index + 1}",
-        "mac",        "AA:BB:CC:11:11:3${count.index + 1}",
+        "hostname",   "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}",
+        "mac", "",
         "wait_for_lease", true,
       ),
       map(
-        "addresses",  "${list("${local.network_addresses[0]}${count.index}")}",
+        "addresses",  "${list("${local.network_addresses}${count.index}")}",
       )
     ))}"]
 
@@ -94,10 +100,15 @@ output "information" {
   }
 }
 
-output "addresses" {
+output "interfaces" {
   // Returning only the addresses is not possible right now. Will be available in terraform 12
   // https://bradcod.es/post/terraform-conditional-outputs-in-modules/
   value = "${libvirt_domain.domain.*.network_interface}"
+}
+
+// Only able the show the 1st net_interface if have multple
+output "addresses" {
+  value = "${flatten(libvirt_domain.domain.*.network_interface.0.addresses)}"
 }
 
 output "diskes" {
