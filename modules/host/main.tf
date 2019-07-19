@@ -106,10 +106,10 @@ output "interfaces" {
   value = "${libvirt_domain.domain.*.network_interface}"
 }
 
-// Only able the show the 1st net_interface if have multple
-output "addresses" {
-  value = "${flatten(libvirt_domain.domain.*.network_interface.0.addresses)}"
-}
+# // Only able the show the 1st net_interface if have multple
+# output "ips" {
+#   value = "${flatten(libvirt_domain.domain.*.network_interface.0.addresses)}"
+# }
 
 output "diskes" {
   value = "${libvirt_domain.domain.*.disk}"

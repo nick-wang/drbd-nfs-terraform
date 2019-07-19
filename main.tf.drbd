@@ -60,9 +60,13 @@ output "drbd_information" {
   value = "${module.drbd.information}"
 }
 
-output "drbd_addresses" {
-  value = "${module.drbd.addresses}"
+output "drbd_interfaces" {
+  value = "${module.drbd.interfaces}"
 }
+
+# output "drbd_ips" {
+#   value = "${module.drbd.ips}"
+# }
 
 output "drbd_diskes" {
   value = "${module.drbd.diskes}"

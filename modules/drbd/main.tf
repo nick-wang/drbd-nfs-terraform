@@ -108,16 +108,16 @@ output "information" {
   }
 }
 
+// Returning only the addresses is not possible right now. Will be available in terraform 12
+// https://bradcod.es/post/terraform-conditional-outputs-in-modules/
 output "interfaces" {
-  // Returning only the addresses is not possible right now. Will be available in terraform 12
-  // https://bradcod.es/post/terraform-conditional-outputs-in-modules/
   value = "${libvirt_domain.domain.*.network_interface}"
 }
 
-// Only able the show the 1st net_interface if have multple
-output "addresses" {
-  value = "${flatten(libvirt_domain.domain.*.network_interface.0.addresses)}"
-}
+# // Only able the show the 1st net_interface if have multple
+# output "ips" {
+#   value = "${flatten(libvirt_domain.domain.*.network_interface.0.addresses)}"
+# }
 
 output "diskes" {
   value = "${libvirt_domain.domain.*.disk}"
