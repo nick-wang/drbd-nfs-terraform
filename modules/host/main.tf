@@ -27,7 +27,7 @@ resource "libvirt_volume" "main_disk" {
 
 // https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/website/docs/r/domain.html.markdown
 resource "libvirt_domain" "domain" {
-  name       = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index  + 1}" : ""}"
+  name       = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index + 1}" : ""}"
   memory     = "${var.memory}"
   vcpu       = "${var.vcpu}"
   running    = "${var.running}"
@@ -115,7 +115,7 @@ output "diskes" {
   value = "${libvirt_domain.domain.*.disk}"
 }
 
-// All xml should be exactly the same, so only show the 1st one
-output "xml" {
-  value = "${libvirt_domain.domain.0.xml}"
-}
+#// All xml should be exactly the same, so only show the 1st one
+#output "xml" {
+#  value = "${libvirt_domain.domain.0.xml}"
+#}

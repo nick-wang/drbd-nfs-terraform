@@ -44,7 +44,32 @@ variable "xmlfile" {
   default     = "modules/host/shareable.xsl"
 }
 
+variable "salt_path" {
+  description = "Path to the salt folder"
+  default     = "./salt"
+}
+
 variable "additional_disk" {
   description = "disk block definition(s) to be added to this host"
   default     = []
+}
+
+variable "provisioner" {
+  description = "Used provisioner option. Available options: salt. Let empty to not use any provisioner"
+  default     = "salt"
+}
+
+variable "background" {
+  description = "Run the provisioner execution in background if set to true finishing terraform execution"
+  default     = false
+}
+
+variable "grains" {
+  description = "custom grain string to be added to this host's configuration"
+  default     = ""
+}
+
+variable "reg_code" {
+  description = "If informed, register the product using SUSEConnect"
+  default     = ""
 }
