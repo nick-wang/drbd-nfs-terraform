@@ -59,6 +59,6 @@ output "host_diskes" {
   value = "${module.host.diskes}"
 }
 
-output "host_xml" {
-  value = "${module.host.xml}"
-}
+# output "host_xml" {
+#   value = "${module.host.xml}"
+# }

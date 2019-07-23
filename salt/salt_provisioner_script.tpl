@@ -2,7 +2,7 @@
 
 mv /tmp/salt /root || true
 
-echo "Deployed by Terraform at $(date)" > /etc/motd
+echo "Deployed by Terraform at $(date)" >> /etc/motd
 
 ## SCC Registration to install salt-minion
 #

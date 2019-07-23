@@ -28,6 +28,11 @@ variable "xmlfile" {
   default     = "modules/drbd/shareable.xsl"
 }
 
+variable "salt_path" {
+  description = "Path to the salt folder"
+  default     = "./salt"
+}
+
 variable "drbd_disk_count" {
   description = "Number of drbd disk"
   default     = 1
@@ -61,5 +66,25 @@ variable "additional_disk" {
 
 variable "sbd_disk" {
   description = "sbd devices, only support 1 device atm. FIXME"
+  default     = ""
+}
+
+variable "provisioner" {
+  description = "Used provisioner option. Available options: salt. Let empty to not use any provisioner"
+  default     = "salt"
+}
+
+variable "background" {
+  description = "Run the provisioner execution in background if set to true finishing terraform execution"
+  default     = false
+}
+
+variable "grains" {
+  description = "custom grain string to be added to this host's configuration"
+  default     = ""
+}
+
+variable "reg_code" {
+  description = "If informed, register the product using SUSEConnect"
   default     = ""
 }

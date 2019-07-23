@@ -72,6 +72,6 @@ output "drbd_diskes" {
   value = "${module.drbd.diskes}"
 }
 
-output "drbd_xml" {
-  value = "${module.drbd.xml}"
-}
+# output "drbd_xml" {
+#   value = "${module.drbd.xml}"
+# }
