@@ -59,6 +59,11 @@ variable "running" {
   default     = true
 }
 
+variable "drbddev" {
+  description = "Device for DRBD backing device, only support 1 device atm. FIXME"
+  default     = "/dev/vdb"
+}
+
 variable "additional_disk" {
   description = "disk block definition(s) to be added to this host"
   default     = []

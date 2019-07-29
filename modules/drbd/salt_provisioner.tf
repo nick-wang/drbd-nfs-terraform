@@ -50,6 +50,15 @@ timezone: ${var.base_configuration["timezone"]}
 host_nodes: ${var.hcount}
 network_address_base: ${local.network_addresses}
 
+drbddev: ${var.drbddev}
+partitions:
+  1:
+    start: 1
+    end: 30%
+  2:
+    start: 30%
+    end: 100%
+
 ${var.grains}
 
 EOF

@@ -20,3 +20,4 @@ drbd_disk_count=1
 xmlfile="shareable.xsl"
 salt_path="../../salt"
 sbd_disk="/ssddummy/libvirtimages/sle15sp1-nwang-1-sbddisk.raw"
+drbddev="/dev/vdb"
