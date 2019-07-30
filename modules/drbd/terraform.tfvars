@@ -8,6 +8,7 @@ base_configuration = {
   iprange="192.168.10.10/24,192.168.20.10/24"
   shared_img=0
   timezone = "Asia/Beijing"
+  public_key_location="~/.ssh/id_rsa.pub"
 
   # Need to change the network_id after base create, use the real one.
   #network_id = "cdcc2a40-2b05-4afa-b52f-a8ae97ffdb10,d3f4b4cb-4573-4fda-8733-edcc01b1f546"

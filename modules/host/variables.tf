@@ -18,6 +18,13 @@ variable "hcount" {
   default     = 1
 }
 
+variable "public_key_location" {
+  description = "path of additional pub ssh key you want to use to access VMs"
+  default     = "/dev/null"
+
+  # HACK: "" cannot be used as a default because of https://github.com/hashicorp/hil/issues/50
+}
+
 // Provider-specific variables
 variable "memory" {
   description = "RAM memory in MiB"

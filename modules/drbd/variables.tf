@@ -18,6 +18,13 @@ variable "hcount" {
   default     = 1
 }
 
+variable "public_key_location" {
+  description = "path of additional pub ssh key you want to use to access VMs"
+  default     = "/dev/null"
+
+  # HACK: "" cannot be used as a default because of https://github.com/hashicorp/hil/issues/50
+}
+
 variable "cpu_model" {
   description = "Define what CPU model the guest is getting (host-model, host-passthrough or the default)."
   default = ""

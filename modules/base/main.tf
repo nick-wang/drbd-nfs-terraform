@@ -51,6 +51,7 @@ output "configuration" {
     prefix   = "${var.prefix}"
     iprange  = "${join(",", var.iprange)}"
     pool     = "${var.pool}"
+    public_key_location  = "${var.public_key_location}"
 
     # Use join to change possible list to string. Since need have homogenous type
     image_id   = "${join(",", libvirt_volume.base_image.*.id)}"

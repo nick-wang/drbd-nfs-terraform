@@ -49,6 +49,7 @@ domain: ${var.base_configuration["domain"]}
 timezone: ${var.base_configuration["timezone"]}
 host_nodes: ${var.hcount}
 network_address_base: ${local.network_addresses}
+authorized_keys: [${trimspace(file(var.base_configuration["public_key_location"]))},${trimspace(file(var.public_key_location))}]
 
 drbddev: ${var.drbddev}
 partitions:
