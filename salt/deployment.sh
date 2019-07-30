@@ -7,7 +7,7 @@ salt-call --local --file-root=/root/salt \
     --retcode-passthrough \
     --force-color state.apply pre_installation || exit 1
 
-salt-call --local \
+salt-call --local --file-root=/root/salt \
     --pillar-root=/root/salt/pillar/ \
     --log-level=info \
     --log-file=/tmp/salt-deployment.log \

@@ -1,6 +1,7 @@
 #!/bin/bash -xe
 
 salt-call --local \
+    --pillar-root=/root/salt/pillar \
     --log-level=info \
     --log-file=/tmp/salt-formula.log \
     --log-file-level=all \
