@@ -12,7 +12,7 @@ cluster:
   install_packages: false
   sshkeys:
     overwrite: true
-    password: suse
+    password: linux
   configure:
     method: 'update'
     template:

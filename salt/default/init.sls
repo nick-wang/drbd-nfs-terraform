@@ -7,10 +7,5 @@ include:
   - default.pkgs
 {% if grains['provider'] == 'libvirt' %}
   - default.timezone
-refresh_repos:
-  cmd.run:
-    - name: zypper --non-interactive --gpg-auto-import-keys refresh
-    - retry:
-        attempts: 3
-        interval: 15
+  - default.auth_keys
 {% endif %}
