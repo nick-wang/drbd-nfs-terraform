@@ -13,10 +13,6 @@ fi
 
 mkdir -p /etc/salt;cp /tmp/grains /etc/salt || true
 
-# Revert the ha_factory and ha_backport repo due to the priority of drbd-formula
-echo -ne 'ha_factory_repo: "https://download.opensuse.org/repositories/network:/ha-clustering:/Backports/openSUSE_Leap_15.1/"\n' >> /etc/salt/grains
-echo -ne 'additional_packages: ["tree", "less"]\n' >> /etc/salt/grains
-
 # Server configuration
 #sh /root/salt/deployment.sh || exit 1
 

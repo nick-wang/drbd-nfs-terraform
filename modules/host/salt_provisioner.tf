@@ -51,6 +51,8 @@ reg_email: ${var.reg_email}
 reg_additional_modules: {${join(", ", formatlist("'%s': '%s'", keys(var.reg_additional_modules), values(var.reg_additional_modules)))}}
 host_nodes: ${var.hcount}
 network_address_base: ${local.network_addresses}
+additional_repos: {${join(", ", formatlist("'%s': '%s'", keys(var.additional_repos), values(var.additional_repos)))}}
+additional_packages: [${join(", ", formatlist("'%s'", var.additional_packages))}]
 authorized_keys: [${trimspace(file(var.base_configuration["public_key_location"]))},${trimspace(file(var.public_key_location))}]
 
 ${var.grains}

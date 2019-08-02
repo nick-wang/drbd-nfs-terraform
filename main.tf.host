@@ -35,6 +35,8 @@ module "host" {
    reg_code               = "${var.reg_code}"
    reg_email              = "${var.reg_email}"
    reg_additional_modules = "${var.reg_additional_modules}"
+   additional_repos       = "${var.additional_repos}"
+   additional_packages    = "${var.additional_packages}"
 
    hcount   = "${var.hcount}"
 }

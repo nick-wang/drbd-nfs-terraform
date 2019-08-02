@@ -19,6 +19,8 @@ hcount=2
 xmlfile="shareable.xsl"
 salt_path="../../salt"
 
+additional_packages=["tree", "less", "man"]
+
 # Optional SUSE Customer Center Registration parameters
 reg_code = "<<REG_CODE>>"
 reg_email = "<<your email>>"

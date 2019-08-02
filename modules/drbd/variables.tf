@@ -29,6 +29,22 @@ variable "reg_additional_modules" {
   default     = {}
 }
 
+variable "additional_repos" {
+  description = "extra repositories in the form {label = url}"
+  default     = {}
+}
+
+variable "additional_packages" {
+  description = "extra packages to install"
+  default     = []
+}
+
+# Repository url used to install install HA/SAP deployment packages
+variable "ha_sap_deployment_repo" {
+  description = "Repository url used to install install HA/SAP deployment packages"
+  default = ""
+}
+
 variable "hcount" {
   description = "Number of hosts like this one"
   default     = 1
