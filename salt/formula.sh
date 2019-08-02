@@ -1,5 +1,6 @@
 #!/bin/bash -xe
 
+#running salt formulas
 salt-call --local \
     --pillar-root=/root/salt/pillar \
     --log-level=info \

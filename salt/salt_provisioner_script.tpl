@@ -14,8 +14,10 @@ fi
 mkdir -p /etc/salt;cp /tmp/grains /etc/salt || true
 
 # Server configuration
-#sh /root/salt/deployment.sh || exit 1
+sh /root/salt/deployment.sh || exit 1
 
+
+# Need to guarantee all nodes are online
 ## Salt formulas execution
 #if grep -q 'role: drbd' /etc/salt/grains; then
 #  sh /root/salt/formula.sh || exit 1

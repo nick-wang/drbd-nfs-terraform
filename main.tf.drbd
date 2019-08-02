@@ -52,6 +52,7 @@ module "drbd" {
    # Only support drbd_disk_count:1 atm
    drbd_disk_count = "${var.drbd_disk_count}"
    drbd_disk_size  = "${var.drbd_disk_size}"
+   drbdnfs         = "${var.drbdnfs}"
 
    sbd_disk = "${module.sbd.ids}"
 }

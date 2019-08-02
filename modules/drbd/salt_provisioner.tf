@@ -79,6 +79,7 @@ ha_sap_deployment_repo: ${var.ha_sap_deployment_repo}
 authorized_keys: [${trimspace(file(var.base_configuration["public_key_location"]))},${trimspace(file(var.public_key_location))}]
 
 drbddev: ${var.drbddev}
+drbdnfs: ${var.drbdnfs}
 partitions:
   1:
     start: 1

@@ -82,6 +82,11 @@ variable "drbd_disk_size" {
   default     = "1024000000"              # 1GB
 }
 
+variable "drbdnfs" {
+  description = "Methods to manage NFS on top of DRBD. Valid: \"\", cluster, raw."
+  default     = ""
+}
+
 // Provider-specific variables
 variable "memory" {
   description = "RAM memory in MiB"

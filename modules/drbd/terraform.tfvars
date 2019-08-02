@@ -21,6 +21,7 @@ xmlfile="shareable.xsl"
 salt_path="../../salt"
 sbd_disk="/ssddummy/libvirtimages/sle15sp1-nwang-1-sbddisk.raw"
 drbddev="/dev/vdb"
+drbdnfs=""
 
 ha_sap_deployment_repo="https://download.opensuse.org/repositories/network:/ha-clustering:/Backports/openSUSE_Leap_15.1/"
 additional_packages=["tree", "less", "man"]
