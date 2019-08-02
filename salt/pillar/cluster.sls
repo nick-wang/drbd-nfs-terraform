@@ -9,7 +9,7 @@ cluster:
   sbd:
     device: '/dev/vdc'
   ntp: pool.ntp.org
-  install_packages: false
+  install_packages: true
   sshkeys:
     overwrite: true
     password: linux

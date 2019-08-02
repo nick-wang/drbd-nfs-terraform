@@ -5,7 +5,6 @@ mv /tmp/salt /root || true
 echo "Deployed by Terraform at $(date)" >> /etc/motd
 
 # SCC Registration to install salt-minion
-
 if grep -q 'role: drbd' /tmp/grains; then
   sh /root/salt/install-salt-minion.sh -r ${regcode}
 elif [[ ! -e /usr/bin/salt-minion ]]; then

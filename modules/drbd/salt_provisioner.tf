@@ -15,6 +15,17 @@ data "template_file" "salt_provisioner" {
   }
 }
 
+# Template file to launch the salt provisioning script
+data "template_file" "drbd_pillar" {
+  template = "${file("${var.salt_path}/drbd_pillar.tpl")}"
+
+  vars {
+    host_nodes = "${var.hcount}"
+    hostname_base = "${var.base_configuration["prefix"]}-${var.name}-"
+    network_address_base = "${local.network_addresses}"
+  }
+}
+
 resource "null_resource" "drbd_provisioner" {
   count = "${var.provisioner == "salt" ? libvirt_domain.domain.count : 0}"
 
@@ -36,6 +47,11 @@ resource "null_resource" "drbd_provisioner" {
   provisioner "file" {
     content     = "${data.template_file.salt_provisioner.rendered}"
     destination = "/tmp/salt_provisioner.sh"
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.drbd_pillar.rendered}"
+    destination = "/tmp/drbd_pillar.sls"
   }
 
   provisioner "file" {
