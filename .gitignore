@@ -1,5 +1,6 @@
 .terraform*
 terraform.tfstate*
-TODO*
 crash.log
+TODO*
 replace-regcode.sh
+*.me

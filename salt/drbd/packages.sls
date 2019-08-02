@@ -7,14 +7,18 @@ drbd-kmp-default:
 
 drbd-formula:
   pkg.installed:
-    - fromrepo: ha_backport_repo_default
+{% if grains['ha_factory_repo'] == 'libvirt' %}
+    - fromrepo: ha-factory
+{% endif %}
     - retry:
         attempts: 3
         interval: 15
 
 habootstrap-formula:
   pkg.installed:
-    - fromrepo: ha_backport_repo_default
+{% if grains['ha_factory_repo'] == 'libvirt' %}
+    - fromrepo: ha-factory
+{% endif %}
     - retry:
         attempts: 3
         interval: 15
