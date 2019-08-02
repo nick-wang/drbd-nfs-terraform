@@ -22,7 +22,7 @@ drbd:
   salt:
     # Pirmary node when promoting DRBD
     # TODO: Only support single primary currently
-    promotion: "Fdrbdsles15sp1-testnode-1"
+    promotion: "Fdrbdopensuse150-testnode-1"
   #  # Resource template for /etc/drbd.d/xxx.res
   #  res_template: "res_single_vol_v9.j2"
   #  # Optional: interval check time for waiting for resource synced
@@ -89,19 +89,19 @@ drbd:
       # Salt specific
       file_system: "ext3"
       mount_point: "/mnt/fs-A"
-      virtual_ip: "192.168.10.201"
+      virtual_ip: "192.168.20.201"
 
       nodes:
-        - name: "Fdrbdsles15sp1-testnode-1"
-          ip: "192.168.10.100"
+        - name: "Fdrbdopensuse150-testnode-1"
+          ip: "192.168.20.100"
           port: 7990
           id: 1
-        - name: "Fdrbdsles15sp1-testnode-2"
-          ip: "192.168.10.101"
+        - name: "Fdrbdopensuse150-testnode-2"
+          ip: "192.168.20.101"
           port: 7990
           id: 2
-        - name: "Fdrbdsles15sp1-testnode-3"
-          ip: "192.168.10.102"
+        - name: "Fdrbdopensuse150-testnode-3"
+          ip: "192.168.20.102"
           port: 7990
           id: 3
 
@@ -116,18 +116,18 @@ drbd:
       # Salt specific
       file_system: "ext4"
       mount_point: "/mnt/fs-B"
-      virtual_ip: "192.168.10.202"
+      virtual_ip: "192.168.20.202"
 
       nodes:
-        - name: "Fdrbdsles15sp1-testnode-1"
-          ip: "192.168.10.100"
+        - name: "Fdrbdopensuse150-testnode-1"
+          ip: "192.168.20.100"
           port: 7982
           id: 1
-        - name: "Fdrbdsles15sp1-testnode-2"
-          ip: "192.168.10.101"
+        - name: "Fdrbdopensuse150-testnode-2"
+          ip: "192.168.20.101"
           port: 7982
           id: 2
-        - name: "Fdrbdsles15sp1-testnode-3"
-          ip: "192.168.10.102"
+        - name: "Fdrbdopensuse150-testnode-3"
+          ip: "192.168.20.102"
           port: 7982
           id: 3

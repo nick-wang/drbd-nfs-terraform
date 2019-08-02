@@ -1,6 +1,6 @@
 cluster:
   name: 'hacluster'
-  init: 'Fdrbdsles15sp1-testnode-1'
+  init: 'Fdrbdopensuse150-testnode-1'
   interface: 'eth0'
   join_timer: 20
   watchdog:
@@ -18,7 +18,7 @@ cluster:
     template:
       source: /tmp/drbd.j2
       parameters:
-        virtual_ip: 192.168.10.200
+        virtual_ip: 192.168.20.200
         virtual_ip_mask: 24
         platform: libvirt
         prefer_takeover: true

@@ -29,7 +29,7 @@ resource "libvirt_network" "base_network" {
   count     = "${length(var.iprange)}"
   # Startswith "virbr5" or "br5" to avoid conflict
   # Could be empty if "${length(var.iprange)}" is 1
-  bridge    = "${var.netmode == "nat" ? "virbr" : "br"}${count.index + 5}"
+  bridge    = "${var.netmode == "nat" ? "virbr" : "br"}${count.index + 6}"
 
   dhcp {
     enabled = "${var.dhcp}"
