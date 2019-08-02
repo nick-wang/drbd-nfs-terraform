@@ -11,11 +11,18 @@ base_configuration = {
   public_key_location="~/.ssh/id_rsa.pub"
 
   # Need to change the network_id after base create, use the real one.
-  #network_id = "cdcc2a40-2b05-4afa-b52f-a8ae97ffdb10,d3f4b4cb-4573-4fda-8733-edcc01b1f546"
-  network_id = "5308a8eb-174c-4537-8ca1-0a8bb69a7156"
+  network_id = "dd5c3664-fb6a-4759-b2f8-ee7d90fea559"
 }
 
 name="nwang"
 hcount=2
 xmlfile="shareable.xsl"
 salt_path="../../salt"
+
+# Optional SUSE Customer Center Registration parameters
+reg_code = "<<REG_CODE>>"
+reg_email = "<<your email>>"
+reg_additional_modules = {
+    "sle-module-containers/15.1/x86_64" = ""
+    "sle-ha/15.1/x86_64" = "<<REG_CODE_HA>>"
+}

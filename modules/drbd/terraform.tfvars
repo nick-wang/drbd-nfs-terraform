@@ -11,8 +11,7 @@ base_configuration = {
   public_key_location="~/.ssh/id_rsa.pub"
 
   # Need to change the network_id after base create, use the real one.
-  #network_id = "cdcc2a40-2b05-4afa-b52f-a8ae97ffdb10,d3f4b4cb-4573-4fda-8733-edcc01b1f546"
-  network_id = "3ea67e36-f748-42bf-ad17-7aa3f729f2e7"
+  network_id = "dd5c3664-fb6a-4759-b2f8-ee7d90fea559"
 }
 
 name="nwang"
@@ -22,3 +21,11 @@ xmlfile="shareable.xsl"
 salt_path="../../salt"
 sbd_disk="/ssddummy/libvirtimages/sle15sp1-nwang-1-sbddisk.raw"
 drbddev="/dev/vdb"
+
+# Optional SUSE Customer Center Registration parameters
+reg_code = "<<REG_CODE>>"
+reg_email = "<<your email>>"
+reg_additional_modules = {
+    "sle-module-containers/15.1/x86_64" = ""
+    "sle-ha/15.1/x86_64" = "<<REG_CODE_HA>>"
+}

@@ -10,3 +10,11 @@ hcount=3
 iprange=["192.168.10.10/24"]
 
 shared_img=false
+
+# Optional SUSE Customer Center Registration parameters
+reg_code = "<<REG_CODE>>"
+reg_email = "<<your email>>"
+reg_additional_modules = {
+    "sle-module-containers/15.1/x86_64" = ""
+    "sle-ha/15.1/x86_64" = "<<REG_CODE_HA>>"
+}

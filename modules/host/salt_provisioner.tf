@@ -46,6 +46,9 @@ name_prefix: ${var.name}
 hostname: ${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index + 1}" : ""}
 domain: ${var.base_configuration["domain"]}
 timezone: ${var.base_configuration["timezone"]}
+reg_code: ${var.reg_code}
+reg_email: ${var.reg_email}
+reg_additional_modules: {${join(", ", formatlist("'%s': '%s'", keys(var.reg_additional_modules), values(var.reg_additional_modules)))}}
 host_nodes: ${var.hcount}
 network_address_base: ${local.network_addresses}
 authorized_keys: [${trimspace(file(var.base_configuration["public_key_location"]))},${trimspace(file(var.public_key_location))}]

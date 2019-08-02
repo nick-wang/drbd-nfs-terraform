@@ -13,6 +13,22 @@ variable "name" {
   default     = "testnode"
 }
 
+variable "reg_code" {
+  description = "If informed, register the product using SUSEConnect"
+  default     = ""
+}
+
+variable "reg_email" {
+  description = "Email used for the registration"
+  default     = ""
+}
+
+variable "reg_additional_modules" {
+  description = "Map of the modules to be registered. Module name = Regcode, when needed."
+  type        = "map"
+  default     = {}
+}
+
 variable "hcount" {
   description = "Number of hosts like this one"
   default     = 1
@@ -73,10 +89,5 @@ variable "background" {
 
 variable "grains" {
   description = "custom grain string to be added to this host's configuration"
-  default     = ""
-}
-
-variable "reg_code" {
-  description = "If informed, register the product using SUSEConnect"
   default     = ""
 }

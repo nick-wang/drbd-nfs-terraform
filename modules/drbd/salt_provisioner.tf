@@ -50,6 +50,11 @@ resource "null_resource" "drbd_provisioner" {
   }
 
   provisioner "file" {
+    source = "${var.salt_path}/misc/jinja2-templates/drbd.j2"
+    destination = "/tmp/drbd.j2"
+  }
+
+  provisioner "file" {
     content     = "${data.template_file.drbd_pillar.rendered}"
     destination = "/tmp/drbd_pillar.sls"
   }
@@ -64,6 +69,9 @@ hostname: ${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${
 domain: ${var.base_configuration["domain"]}
 timezone: ${var.base_configuration["timezone"]}
 host_nodes: ${var.hcount}
+reg_code: ${var.reg_code}
+reg_email: ${var.reg_email}
+reg_additional_modules: {${join(", ", formatlist("'%s': '%s'", keys(var.reg_additional_modules), values(var.reg_additional_modules)))}}
 network_address_base: ${local.network_addresses}
 authorized_keys: [${trimspace(file(var.base_configuration["public_key_location"]))},${trimspace(file(var.public_key_location))}]
 

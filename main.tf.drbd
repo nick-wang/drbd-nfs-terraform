@@ -40,6 +40,10 @@ module "drbd" {
    source             = "./modules/drbd"
    base_configuration = "${module.base.configuration}"
 
+   reg_code               = "${var.reg_code}"
+   reg_email              = "${var.reg_email}"
+   reg_additional_modules = "${var.reg_additional_modules}"
+
    hcount   = "${var.hcount}"
    # Only support drbd_disk_count:1 atm
    drbd_disk_count = "${var.drbd_disk_count}"
