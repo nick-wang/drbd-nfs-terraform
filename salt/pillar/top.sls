@@ -2,7 +2,6 @@ base:
   'role:drbd':
     - match: grain
     - drbd
-
-  'drbdnfs:cluster':
-    - match: grain
+{% if grains['drbdnfs'] == 'cluster' %}
     - cluster
+{% endif %}

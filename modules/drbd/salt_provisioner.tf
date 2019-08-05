@@ -16,8 +16,8 @@ data "template_file" "salt_provisioner" {
 }
 
 # Template file to launch the salt provisioning script
-data "template_file" "drbd_pillar" {
-  template = "${file("${var.salt_path}/drbd_pillar.tpl")}"
+data "template_file" "cluster_info" {
+  template = "${file("${var.salt_path}/cluster_info.tpl")}"
 
   vars {
     host_nodes = "${var.hcount}"
@@ -55,8 +55,8 @@ resource "null_resource" "drbd_provisioner" {
   }
 
   provisioner "file" {
-    content     = "${data.template_file.drbd_pillar.rendered}"
-    destination = "/tmp/drbd_pillar.sls"
+    content     = "${data.template_file.cluster_info.rendered}"
+    destination = "/tmp/cluster_info"
   }
 
   provisioner "file" {
