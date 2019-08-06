@@ -98,11 +98,6 @@ variable "vcpu" {
   default     = 1
 }
 
-variable "running" {
-  description = "Whether this host should be turned on or off"
-  default     = true
-}
-
 variable "drbddev" {
   description = "Device for DRBD backing device, only support 1 device atm. FIXME"
   default     = "/dev/vdb"

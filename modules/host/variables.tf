@@ -67,11 +67,6 @@ variable "cpu_model" {
   default = ""
 }
 
-variable "running" {
-  description = "Whether this host should be turned on or off"
-  default     = true
-}
-
 variable "xmlfile" {
   description = "Path to xmlfile to define host. eg, (sbd disk) shareable"
   default     = "modules/host/shareable.xsl"

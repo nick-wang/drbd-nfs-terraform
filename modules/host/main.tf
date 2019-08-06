@@ -30,7 +30,6 @@ resource "libvirt_domain" "domain" {
   name       = "${var.base_configuration["prefix"]}-${var.name}${var.hcount > 1 ? "-${count.index + 1}" : ""}"
   memory     = "${var.memory}"
   vcpu       = "${var.vcpu}"
-  running    = "${var.running}"
   count      = "${var.hcount}"
   qemu_agent = true
 
