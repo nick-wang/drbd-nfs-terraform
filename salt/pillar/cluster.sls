@@ -1,6 +1,6 @@
 cluster:
   name: 'hacluster'
-  init: 'Fdrbdnew-testnode-1'
+  init: 'Fdrbdsles15sp1-testnode-1'
   interface: 'eth0'
   join_timer: 20
   watchdog:

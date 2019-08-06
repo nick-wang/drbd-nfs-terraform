@@ -22,7 +22,7 @@ drbd:
   salt:
     # Pirmary node when promoting DRBD
     # TODO: Only support single primary currently
-    promotion: "Fdrbdnew-testnode-1"
+    promotion: "Fdrbdsles15sp1-testnode-1"
   #  # Resource template for /etc/drbd.d/xxx.res
   #  res_template: "res_single_vol_v9.j2"
   #  # Optional: interval check time for waiting for resource synced
@@ -92,15 +92,15 @@ drbd:
       virtual_ip: "192.168.10.201"
 
       nodes:
-        - name: "Fdrbdnew-testnode-1"
+        - name: "Fdrbdsles15sp1-testnode-1"
           ip: "192.168.10.100"
           port: 7990
           id: 1
-        - name: "Fdrbdnew-testnode-2"
+        - name: "Fdrbdsles15sp1-testnode-2"
           ip: "192.168.10.101"
           port: 7990
           id: 2
-        - name: "Fdrbdnew-testnode-3"
+        - name: "Fdrbdsles15sp1-testnode-3"
           ip: "192.168.10.102"
           port: 7990
           id: 3
@@ -119,15 +119,15 @@ drbd:
       virtual_ip: "192.168.10.202"
 
       nodes:
-        - name: "Fdrbdnew-testnode-1"
+        - name: "Fdrbdsles15sp1-testnode-1"
           ip: "192.168.10.100"
           port: 7982
           id: 1
-        - name: "Fdrbdnew-testnode-2"
+        - name: "Fdrbdsles15sp1-testnode-2"
           ip: "192.168.10.101"
           port: 7982
           id: 2
-        - name: "Fdrbdnew-testnode-3"
+        - name: "Fdrbdsles15sp1-testnode-3"
           ip: "192.168.10.102"
           port: 7982
           id: 3
