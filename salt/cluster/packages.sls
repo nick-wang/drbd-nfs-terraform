@@ -1,6 +1,6 @@
 habootstrap-formula:
   pkg.installed:
-{% if grains['ha_sap_deployment_repo'] %}
+{% if grains.get('ha_sap_deployment_repo') %}
     - fromrepo: ha-factory
 {% endif %}
     - retry:

@@ -7,7 +7,7 @@ refresh_repos_default:
         interval: 15
 {% endif %}
 
-{% if grains['additional_repos'] %}
+{% if grains.get('additional_repos') %}
 {% for label, url in grains['additional_repos'].items() %}
 {{ label }}_repo_default:
   pkgrepo.managed:
