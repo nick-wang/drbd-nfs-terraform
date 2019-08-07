@@ -6,7 +6,7 @@ drbd:
   install_packages: false
 
   ## Install required package to configure DRBD in pacemaker cluster
-  #with_ha: false
+  #with_ha: true
 
   ## Perform initial sync for DRBD resources
   #need_init_sync: true
@@ -87,7 +87,7 @@ drbd:
       c_fill_target: "10M"
 
       # Salt specific
-      file_system: "ext3"
+      file_system: "xfs"
       mount_point: "/mnt/fs-A"
       virtual_ip: "192.168.10.201"
 

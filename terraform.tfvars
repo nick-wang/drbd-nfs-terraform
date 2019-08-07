@@ -11,6 +11,7 @@ iprange=["192.168.10.10/24"]
 
 shared_img=false
 
+# drbdnfs="raw" to use nfs-formula on primary node instead of pacemaker
 drbdnfs="cluster"
 
 ha_sap_deployment_repo="https://download.opensuse.org/repositories/network:/ha-clustering:/Backports/openSUSE_Leap_15.1/"
