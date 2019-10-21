@@ -87,7 +87,7 @@ drbd:
       c_fill_target: "10M"
 
       # Salt specific
-      file_system: "xfs"
+      file_system: "ext3"
       mount_point: "/mnt/fs-A"
       virtual_ip: "192.168.10.201"
 
