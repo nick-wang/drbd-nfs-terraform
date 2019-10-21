@@ -3,6 +3,8 @@ base:
     - match: grain
     - default
     - drbd
-{% if grains['drbdnfs'] == 'cluster' %}
+{% if grains.get('drbdnfs') == 'cluster' %}
     - cluster
+{% elif grains.get('drbdnfs') == 'raw' %}
+    - nfs.ondrbd
 {% endif %}
