@@ -1,8 +1,8 @@
-{% if grains['additional_packages'] %}
+{% if grains.get('additional_packages') %}
 install_additional_packages:
   pkg.latest:
     - pkgs:
-{% for package in grains['additional_packages'] %}
+{% for package in grains.get('additional_packages') %}
       - {{ package }}
 {% endfor %}
     - require:
