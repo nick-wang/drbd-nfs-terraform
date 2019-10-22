@@ -27,7 +27,7 @@ fi
 
 # Need to guarantee all nodes are online
 # Need to modify the drbd-formula since changes not to project yet.
-## Salt formulas execution
-#if grep -q 'role: drbd' /etc/salt/grains; then
-#  sh /root/salt/scripts/formula.sh || exit 1
-#fi
+# Salt formulas execution
+if grep -q 'role: drbd' /etc/salt/grains; then
+  sh /root/salt/scripts/formula.sh || exit 1
+fi
