@@ -5,7 +5,7 @@
   Quick deploy a cluster for salt-drbd development and deploy.
 
 # Version:
-  0.2
+  0.3
 
 # Usage with workspace:
   terraform workspace new xxx
