@@ -1,9 +1,9 @@
 terraform {
-  required_version = "~> 0.11.7"
+  required_version = "~> 0.12"
 }
 
 provider "libvirt" {
-  uri = "${var.qemu_uri}"
+  uri = var.qemu_uri
 }
 
 locals {
@@ -13,26 +13,26 @@ locals {
 
 # Download retrieve source image
 resource "libvirt_volume" "base_image" {
-  name   = "${var.baseimg == "" ? "${var.prefix}-baseimage" : var.baseimg}"
-  pool   = "${var.pool}"
-  format = "${var.format}"
-  source = "${var.image}"
+  name   = var.baseimg == "" ? "${var.prefix}-baseimage" : var.baseimg
+  pool   = var.pool
+  format = var.format
+  source = var.image
   # Will not create a new base image when shared_img is true
-  count  = "${var.shared_img ? 0 : 1}"
+  count  = var.shared_img ? 0 : 1
 }
 
 resource "libvirt_network" "base_network" {
   name      = "${var.netname != "" ? var.netname : local.dummy_net_name}${length(var.iprange) > 1 ? "-${count.index + 1}" : ""}"
-  mode      = "${var.netmode}"
+  mode      = var.netmode
   domain    = "${var.netdomain}${length(var.iprange) > 1 ? ".${count.index  + 1}" : ""}"
   addresses = ["${element(var.iprange, count.index)}"]
-  count     = "${length(var.iprange)}"
+  count     = length(var.iprange)
   # Startswith "virbr5" or "br5" to avoid conflict
   # Could be empty if "${length(var.iprange)}" is 1
   bridge    = "${var.netmode == "nat" ? "virbr" : "br"}${count.index + 5}"
 
   dhcp {
-    enabled = "${var.dhcp}"
+    enabled = var.dhcp
   }
 
   autostart = true
@@ -41,8 +41,8 @@ resource "libvirt_network" "base_network" {
 output "configuration" {
   depends_on = [ 
     # The base image and base network must be created before setup a VM
-    "libvirt_volume.base_image",
-    "libvirt_network.base_network",
+    libvirt_volume.base_image,
+    libvirt_network.base_network,
   ]
 
   value = {

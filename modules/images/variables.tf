@@ -29,5 +29,5 @@ variable "use_shared_resources" {
 variable "images" {
   description = "list of images to be uploaded to the libvirt host, leave default for all"
   default = ["sles4sap_12sp0", "sles4sap_12sp1", "sles4sap_12sp2", "sles4sap_12sp3", "sles4sap_12sp4", "sles4sap_15sp0", "sles4sap_15sp1"]
-  type = "list"
+  type = list
 }

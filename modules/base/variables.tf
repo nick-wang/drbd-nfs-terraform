@@ -20,7 +20,7 @@ variable "format" {
 
 variable "image" {
   description = "Path to the template image."
-  type        = "string"
+  type        = string
 }
 
 variable "baseimg" {
@@ -55,14 +55,14 @@ variable "netdomain" {
 
 variable "iprange" {
   description = "Used host ip addresses range. Static IP will start as 192.168.XXX.Y(0), 192.168.XXX.Y(1)"
-  type        = "list"
+  type        = list
   // default     = ["192.168.10.10/24", "192.168.20.10/24"]
   default     = ["192.168.10.10/24"]
 }
 
 variable "dhcp" {
   description = "Whether use of network."
-  type        = "string"
+  type        = string
   default     = true
 }
 
